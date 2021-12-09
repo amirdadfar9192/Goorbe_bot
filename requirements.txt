@@ -2,3 +2,4 @@ discord.py==1.7.3
 DiscordUtilsMod==1.1
 requests==2.26.0
 DiscordUtilsMod[voice]==1.1
+ffmpeg
