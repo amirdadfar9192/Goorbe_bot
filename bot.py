@@ -5,7 +5,7 @@ from discord.ext import commands
 import requests
 import json
 #from flask_file import keep_alive
-import DiscordUtils
+import DiscordUtils-mod
 #vars
 intents = discord.Intents.default()
 intents.members = True
