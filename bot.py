@@ -5,11 +5,11 @@ from discord.ext import commands
 import requests
 import json
 #from flask_file import keep_alive
-import DiscordUtils-mod
+import DiscordUtilsMod
 #vars
 intents = discord.Intents.default()
 intents.members = True
-music = DiscordUtils.Music()
+music = DiscordUtilsMod.Music()
 client = commands.Bot(command_prefix = '%', intents = intents)
 dash = '!------------------------!'
 
