@@ -1,4 +1,4 @@
 discord.py==1.7.3
-DiscordUtilsMod
+DiscordUtilsMod==1.1
 requests==2.26.0
-DiscordUtilsMod[voice]
+DiscordUtilsMod[voice]==1.1
