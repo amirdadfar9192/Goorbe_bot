@@ -97,9 +97,17 @@ async def stop(ctx):
     
 
 
+
+
+
+
 @client.command()
 async def p(ctx , *, url):
+    channel = ctx.message.author.voice.channel
+    await channel.connect()
     if (ctx.voice_client):
+        
+
         player = music.get_player(guild_only_id=ctx.guild.id)
         if not player:
             player = music.create_player(ctx, ffmpeg_error_betterfix=True)
@@ -113,11 +121,16 @@ async def p(ctx , *, url):
             await ctx.send(f"Queued {song.name}")
             await ctx.send(f'{song.thumbnail}') 
 
+
+
+
         
 
 
 @client.command()
 async def P(ctx , *, url):
+    channel = ctx.message.author.voice.channel
+    await channel.connect()
     if (ctx.voice_client):
         player = music.get_player(guild_only_id=ctx.guild.id)
         if not player:
@@ -141,6 +154,8 @@ async def P(ctx , *, url):
 
 @client.command()
 async def play(ctx , *, url):
+    channel = ctx.message.author.voice.channel
+    await channel.connect()
     if (ctx.voice_client):
         player = music.get_player(guild_only_id=ctx.guild.id)
         if not player:
@@ -163,6 +178,8 @@ async def play(ctx , *, url):
 
 @client.command()
 async def Play(ctx , *, url):
+    channel = ctx.message.author.voice.channel
+    await channel.connect()
     if (ctx.voice_client):
         player = music.get_player(guild_only_id=ctx.guild.id)
         if not player:
