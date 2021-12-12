@@ -128,8 +128,6 @@ async def p(ctx , *, url):
 async def P(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
-        channel = ctx.message.author.voice.channel
-        await channel.connect()        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -152,8 +150,7 @@ async def P(ctx , *, url):
 async def play(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
-        channel = ctx.message.author.voice.channel
-        await channel.connect()        
+ 
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -176,8 +173,7 @@ async def play(ctx , *, url):
 async def Play(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
-        channel = ctx.message.author.voice.channel
-        await channel.connect()        
+        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
