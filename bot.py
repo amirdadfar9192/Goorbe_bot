@@ -105,6 +105,8 @@ async def stop(ctx):
 async def p(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        channel = ctx.message.author.voice.channel
+        await channel.connect()        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -126,6 +128,8 @@ async def p(ctx , *, url):
 async def P(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        channel = ctx.message.author.voice.channel
+        await channel.connect()        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -148,6 +152,8 @@ async def P(ctx , *, url):
 async def play(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        channel = ctx.message.author.voice.channel
+        await channel.connect()        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -170,6 +176,8 @@ async def play(ctx , *, url):
 async def Play(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        channel = ctx.message.author.voice.channel
+        await channel.connect()        
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -209,6 +217,20 @@ async def skip(ctx):
     else:
         await ctx.send(f"Skipped {data[0].name}")
 
+
+@client.command()
+async def paginate(ctx):
+    embed1 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 1")
+    embed2 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 2")
+    embed3 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 3")
+    paginator = DiscordUtilsMod.Pagination.CustomEmbedPaginator(ctx)
+    paginator.add_reaction('⏮️', "first")
+    paginator.add_reaction('⏪', "back")
+    paginator.add_reaction('🔐', "lock")
+    paginator.add_reaction('⏩', "next")
+    paginator.add_reaction('⏭️', "last")
+    embeds = [embed1, embed2, embed3]
+    await paginator.run(embeds)
 
 
 @client.command()
