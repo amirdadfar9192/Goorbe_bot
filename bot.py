@@ -105,8 +105,7 @@ async def stop(ctx):
 async def p(ctx , *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
-        channel = ctx.message.author.voice.channel
-        await channel.connect()        
+
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
