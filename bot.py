@@ -86,6 +86,7 @@ async def play(ctx, *, url):
 
 @client.command()
 async def p(ctx, *, url):
+    await ctx.author.voice.channel.connect()
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
