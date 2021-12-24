@@ -103,7 +103,7 @@ async def stop(ctx):
 
 
 @client.command(pass_context = True)
-async def play(ctx, url:str):
+async def play(ctx,url:str):
     if (ctx.author.voice):
             
         channel = ctx.message.author.voice.channel
