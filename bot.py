@@ -73,6 +73,7 @@ async def leave(ctx):
 async def play(ctx, *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        await ctx.author.voice.channel.connect()
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -89,6 +90,7 @@ async def p(ctx, *, url):
     
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        
         await ctx.author.voice.channel.connect()
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
@@ -104,6 +106,7 @@ async def p(ctx, *, url):
 async def Play(ctx, *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        await ctx.author.voice.channel.connect()
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -118,6 +121,7 @@ async def Play(ctx, *, url):
 async def P(ctx, *, url):
     player = music.get_player(guild_id=ctx.guild.id)
     if not player:
+        await ctx.author.voice.channel.connect()
         player = music.create_player(ctx, ffmpeg_error_betterfix=True)
     if not ctx.voice_client.is_playing():
         await player.queue(url, search=True)
@@ -190,7 +194,7 @@ async def remove(ctx, index):
 
 @client.command()
 async def info(ctx):
-    await ctx.send("`Commands = play to play a song(p,P,Play,play), join to join voice,remove to remove a song from your queue, skip to skip a song,np to see what song is playing right now, join to join your voice channel , resume to resume a paused song, pause to pause a song , disconnect to leave a vc,stop to stop the whole queue.Use % as its the bot's prefix . *This Bot Is just For Fun But I'll keep Updating This Project* , Enjoy <3 `")
+    await ctx.send("`Commands = play to play a song(p,P,Play,play), join to join voice,remove to remove a song from your queue, skip to skip a song,np to see what song is playing right now, join to join your voice channel , resume to resume a paused song, pause to pause a song , leaev to leave a vc,stop to stop the whole queue.Use % as its the bot's prefix . *This Bot Is just For Fun But I'll keep Updating This Project* , Enjoy <3 `")
 
 
 
