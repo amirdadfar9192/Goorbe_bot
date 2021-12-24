@@ -2,14 +2,15 @@
 import os
 import discord
 from discord.ext import commands
+from discord import FFmpegPCMAudio
 import requests
 import json
 #from flask_file import keep_alive
-import DiscordUtilsMod
+import youtube_dl
 #vars
 intents = discord.Intents.default()
 intents.members = True
-music = DiscordUtilsMod.Music()
+
 client = commands.Bot(command_prefix = '%', intents = intents)
 dash = '!------------------------!'
 
@@ -54,173 +55,52 @@ async def lie(ctx):
 #async def on_member_join(member):
 #    channel = client.get_channel(821739231096602689)
 #    await channel.send("Hi")    
- 
- 
- 
+
+#MUSIC
+
 @client.command(pass_context = True)
 async def join(ctx):
-    if (ctx.author.voice):
+    if(ctx.author.voice):
         channel = ctx.message.author.voice.channel
-        await channel.connect()
+        voice = await channel.connect()
+        source = FFmpegPCMAudio('piano.wav')
+        player = voice.play(source)
     else:
-        await ctx.send("You Should join a VC first")
+        await ctx.send("You Are not In a VC!!!")   
+
+
+
 
 @client.command(pass_context = True)
-async def disconnect(ctx):
-    if (ctx.voice_client):
+async def dc(ctx):
+    if(ctx.voice_client):
         await ctx.guild.voice_client.disconnect()
-        await ctx.send("Bye-Bye =(((")
+        await ctx.send("I left the VC")
     else:
-        await ctx.send("i'm not in a voice")
-
-@client.command(pass_context = True)
-async def pause(ctx):
-    voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
-    if voice.is_playing():
-        voice.pause() 
-    else:
-        await ctx.send('No Audio Is Playing Right Now :(')
-    
-@client.command(pass_context = True)
-async def resume(ctx):
-    voice = discord.utils.get(client.voice_clients,guild=ctx.guild)
-    if voice.is_paused():
-        voice.resume()
-    else:
-        await ctx.send("There Is No Audio Paused :(")
-
-@client.command(pass_context = True)
-async def stop(ctx):
-    player = music.get_player(guild_id=ctx.guild.id)
-    await player.stop()
-    await ctx.send(f'Stopped ')
-    
+        await ctx.send("I'm not in a VC")
 
 
 
 
 
 
-@client.command()
-async def p(ctx , *, url):
-    player = music.get_player(guild_id=ctx.guild.id)
-    if not player:
-        player = music.create_player(ctx, ffmpeg_error_betterfix=True)
-    if not ctx.voice_client.is_playing():
-        await player.queue(url, search=True)
-        song = await player.play()
-        await ctx.send(f"Playing {song.name}")
-    else:
-        song = await player.queue(url, search=True)
-        await ctx.send(f"Queued {song.name}") 
-
-
-
-
-        
-
-
-@client.command()
-async def P(ctx , *, url):
-    player = music.get_player(guild_id=ctx.guild.id)
-    if not player:
-        player = music.create_player(ctx, ffmpeg_error_betterfix=True)
-    if not ctx.voice_client.is_playing():
-        await player.queue(url, search=True)
-        song = await player.play()
-        await ctx.send(f"Playing {song.name}")
-    else:
-        song = await player.queue(url, search=True)
-        await ctx.send(f"Queued {song.name}")
-
-        
-#
-# blahblahblagh
-#opus  
-
-
-
-@client.command()
-async def play(ctx , *, url):
-    player = music.get_player(guild_id=ctx.guild.id)
-    if not player:
-        player = music.create_player(ctx, ffmpeg_error_betterfix=True)
-    if not ctx.voice_client.is_playing():
-        await player.queue(url, search=True)
-        song = await player.play()
-        await ctx.send(f"Playing {song.name}")
-    else:
-        song = await player.queue(url, search=True)
-        await ctx.send(f"Queued {song.name}")
-
-        
 
 
 
 
 
-@client.command()
-async def Play(ctx , *, url):
-    player = music.get_player(guild_id=ctx.guild.id)
-    if not player:
-        player = music.create_player(ctx, ffmpeg_error_betterfix=True)
-    if not ctx.voice_client.is_playing():
-        await player.queue(url, search=True)
-        song = await player.play()
-        await ctx.send(f"Playing {song.name}")
-    else:
-        song = await player.queue(url, search=True)
-        await ctx.send(f"Queued {song.name}")
 
 
 
 
-@client.command()
-async def loop(ctx):
-    player = music.get_player(guild_id=ctx.guild.id)
-    song = await player.toggle_song_loop()
-    if song.is_looping:
-        await ctx.send(f"Enabled loop for {song.name}")
-    else:
-        await ctx.send(f"Disabled loop for {song.name}")
-
-@client.command()
-async def np(ctx):
-    player = music.get_player(guild_id=ctx.guild.id)
-    song = player.now_playing()
-    await ctx.send(song.name)
 
 
-@client.command()
-async def skip(ctx):
-    player = music.get_player(guild_id=ctx.guild.id)
-    data = await player.skip(force=True)
-    if len(data) == 2:
-        await ctx.send(f"Skipped from {data[0].name} to {data[1].name}")
-    else:
-        await ctx.send(f"Skipped {data[0].name}")
 
 
-@client.command()
-async def paginate(ctx):
-    embed1 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 1")
-    embed2 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 2")
-    embed3 = discord.Embed(color=ctx.author.color).add_field(name="Example", value="Page 3")
-    paginator = DiscordUtilsMod.Pagination.CustomEmbedPaginator(ctx)
-    paginator.add_reaction('⏮️', "first")
-    paginator.add_reaction('⏪', "back")
-    paginator.add_reaction('🔐', "lock")
-    paginator.add_reaction('⏩', "next")
-    paginator.add_reaction('⏭️', "last")
-    embeds = [embed1, embed2, embed3]
-    await paginator.run(embeds)
 
 
-@client.command()
-async def remove(ctx, index):
-    player = music.get_player(guild_id=ctx.guild.id)
-    song = await player.remove_from_queue(int(index))
-    await ctx.send(f"Removed {song.name} from queue")
+
+
 
 
 
