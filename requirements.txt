@@ -3,3 +3,4 @@ DiscordUtilsMod==1.1
 requests==2.26.0
 DiscordUtilsMod[voice]==1.1
 ffmpeg
+youtube_dl

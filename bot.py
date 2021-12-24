@@ -1,4 +1,5 @@
 #imports
+import asyncio
 import os
 import discord
 from discord.ext import commands
@@ -79,6 +80,50 @@ async def dc(ctx):
     else:
         await ctx.send("I'm not in a VC")
 
+@client.command(pass_context = True)
+async def pasue(ctx):
+    voice = discord.utils.get(client.voice_clients,guild = ctx.guild)
+    if voice.is_playing():
+        voice.pause()
+    else : 
+        await ctx.send("Nothing is Playing RN")    
+
+@client.command(pass_context = True)
+async def resume(ctx):
+    voice = discord.utils.get(client.voice_clients,guild = ctx.guild)
+    if voice.is_paused():
+        voice.resume()
+    else:
+        await ctx.send("i'm not paused")
+
+@client.command(pass_context = True)
+async def stop(ctx):
+    voice = discord.utils.get(client.voice_clients, guild = ctx.guild)
+    voice.stop()       
+
+
+@client.command(pass_context = True)
+async def play(ctx, url:str):
+    if (ctx.author.voice):
+            
+        channel = ctx.message.author.voice.channel
+        voice = ctx.guild.voice_client
+        ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors' : [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'prefferedquality': '192',
+        }],
+        }
+    
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+        for file in os.listdir("./"):
+            if file.endswith(".mp3"):
+                os.rename(file, "song.mp3")
+        source = FFmpegPCMAudio('song.mp3s')
+        player = voice.play(source)
 
 
 
@@ -91,16 +136,22 @@ async def dc(ctx):
 
 
 
+@client.command(pass_context = True)
+async def disconnect(ctx):
+    if(ctx.voice_client):
+        await ctx.guild.voice_client.disconnect()
+        await ctx.send("I left the VC")
+    else:
+        await ctx.send("I'm not in a VC")
 
 
-
-
-
-
-
-
-
-
+@client.command(pass_context = True)
+async def leave(ctx):
+    if(ctx.voice_client):
+        await ctx.guild.voice_client.disconnect()
+        await ctx.send("I left the VC")
+    else:
+        await ctx.send("I'm not in a VC")
 
 
 
