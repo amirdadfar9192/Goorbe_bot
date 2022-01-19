@@ -3,6 +3,8 @@ import asyncio
 import os
 import discord
 from discord.ext import commands
+from discord.ext.commands import MissingPermissions, has_permissions
+from discord import Member
 from discord import FFmpegPCMAudio
 import requests
 import json
@@ -196,7 +198,30 @@ async def remove(ctx, index):
 async def info(ctx):
     await ctx.send("`Commands = play to play a song(p,P,Play,play), join to join voice,remove to remove a song from your queue, skip to skip a song,np to see what song is playing right now, join to join your voice channel , resume to resume a paused song, pause to pause a song , leaev to leave a vc,stop to stop the whole queue.Use % as its the bot's prefix . *This Bot Is just For Fun But I'll keep Updating This Project* , Enjoy <3 `")
 
+#KICK,BAN
+@client.command()
+@has_permissions(kick_members = True)
+async def kick(ctx, member: discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    await ctx.send(f'User {member} has been kicked')
 
+@kick.error
+async def kick_error(ctx,error):
+    if isinstance(error, commands.MissingPermissions):
+
+        await ctx.send("You Dont Have The Required Permission")
+
+@client.command()
+@has_permissions(ban_members = True)
+async def ban(ctx, member: discord.Member, *, reason=None):
+    await member.ban(reason=reason)
+    await ctx.send(f'User {member} has been Banned')
+
+@kick.error
+async def ban_error(ctx,error):
+    if isinstance(error, commands.MissingPermissions):
+
+        await ctx.send("You Dont Have The Required Permission")        
 
 
 #keep_alive fucntion uses uptimerobot to keep the application alive
