@@ -1,6 +1,8 @@
 
+from click import pass_context
 import discord
 import os
+from discord.utils import get
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, has_permissions
@@ -46,6 +48,41 @@ class Admin(commands.Cog):
     async def ban_error(self, ctx,error):
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("You Dont Have The Required Permission") 
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(manage_roles = True)
+    async def addrole(self,ctx,  user: discord.Member, role: discord.Role):
+        if role in user.roles:
+            await ctx.send(f"user already has {role} :)")
+        else:
+            await user.add_roles(role)
+            await ctx.send(f"Added {role} to {user.mention}")
+    
+    @addrole.error
+    async def role_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You Dont Have The Permission :(")
+       
+       
+    @commands.command(pass_context=True)
+    @commands.has_permissions(manage_roles = True)
+    async def removerole(self,ctx, user: discord.Member, role: discord.Role):
+        if role in user.roles:
+            await user.remove_roles(role)
+            await ctx.send(f"Removed {role} from {user.mention}:)")
+        else:
+            await ctx.send(f"{user.mention} Doesn't Have {role} :( ")
+    
+
+
+    @removerole.error
+    async def removerole_error(self ,ctx, error):
+         if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You Dont Have The Permission :(")
+
+
+
+
 
 
 
