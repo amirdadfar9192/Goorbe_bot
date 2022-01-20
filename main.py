@@ -1,6 +1,7 @@
 
 import discord
 from discord.ext import commands
+from discord import Member
 import os
 
 
@@ -23,6 +24,7 @@ initial_extensions = []
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         initial_extensions.append("cogs." + filename[:-3])
+
 
 
 if __name__ == '__main__':

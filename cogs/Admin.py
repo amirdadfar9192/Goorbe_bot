@@ -1,5 +1,5 @@
+
 import discord
-import asyncio
 import os
 from discord import Member
 from discord.ext import commands
@@ -21,14 +21,15 @@ class Admin(commands.Cog):
     async def avatar(self, ctx):
         embed = discord.Embed()
         embed.set_image(url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)    
+        await ctx.send(embed=embed)   
+ 
  
  
     @commands.command()
     @has_permissions(kick_members = True)
-    async def kick(self,ctx, member: discord.Member, *, reason=None):
+    async def kick(self,ctx,member: discord.Member, *, reason=None):
         await member.kick(reason=reason)
-        await ctx.send(f'User {member} has been kicked')
+        await ctx.send(f"user {member} has been kicked")
         
     @kick.error
     async def kick_error(self, ctx,error):
