@@ -42,7 +42,7 @@ class Socials(commands.Cog):
         if voice_channel != None:
             channel = voice_channel.name
             vc = await voice_channel.connect()
-            vc.play(discord.FFmpegPCMAudio(source="C:<path_to_file>"))
+            vc.play(discord.FFmpegPCMAudio(source="jumpscare.ogg"))
             # Sleep while audio is playing.
             while vc.is_playing():
                 time.sleep(3)
