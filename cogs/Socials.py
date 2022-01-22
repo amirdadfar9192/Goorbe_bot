@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import time 
 import ffmpeg
+from discord import FFmpegPCMAudio
 
 class Socials(commands.Cog):
 
