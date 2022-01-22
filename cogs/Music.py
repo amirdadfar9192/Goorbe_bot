@@ -25,7 +25,7 @@ class Music(commands.Cog):
             source = FFmpegPCMAudio('jumpscare.ogg')
             player = voice.play(source)
             time.sleep(8)
-            await channel.disconnect()
+            await ctx.voice_client.disconnect()
         
     @commands.command()
     async def leave(self, ctx):
