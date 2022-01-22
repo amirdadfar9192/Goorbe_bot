@@ -26,6 +26,7 @@ class Music(commands.Cog):
             player = voice.play(source)
             time.sleep(8)
             await ctx.voice_client.disconnect()
+            #kalam gir karde
         
     @commands.command()
     async def leave(self, ctx):
