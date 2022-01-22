@@ -1,5 +1,5 @@
 
-from click import pass_context
+
 import discord
 import os
 from discord.utils import get

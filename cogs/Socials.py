@@ -43,14 +43,7 @@ class Socials(commands.Cog):
             channel = voice_channel.name
             vc = await voice_channel.connect()
             vc.play(discord.FFmpegPCMAudio(source="jumpscare.ogg"))
-            # Sleep while audio is playing.
-            while vc.is_playing():
-                time.sleep(3)
-            await vc.disconnect()
-        else:
-            await ctx.send(str(ctx.author.name) + "is not in a channel.")
-        # Delete command after the audio is done playing.
-        await ctx.message.delete()    
+            # Sleep while audio is playing    
     
 #events
     @commands.Cog.listener()
