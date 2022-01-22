@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import time 
+import ffmpeg
 
 class Socials(commands.Cog):
 
@@ -29,6 +31,25 @@ class Socials(commands.Cog):
     @commands.command()
     async def lie(self , ctx):
         await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916966639994568764/unknown.png')  
+
+
+    @commands.command()
+    async def jumpscare(self ,ctx):
+        # Gets voice channel of message author
+        voice_channel = ctx.author.channel
+        channel = None
+        if voice_channel != None:
+            channel = voice_channel.name
+            vc = await voice_channel.connect()
+            vc.play(discord.FFmpegPCMAudio(source="C:<path_to_file>"))
+            # Sleep while audio is playing.
+            while vc.is_playing():
+                time.sleep(3)
+            await vc.disconnect()
+        else:
+            await ctx.send(str(ctx.author.name) + "is not in a channel.")
+        # Delete command after the audio is done playing.
+        await ctx.message.delete()    
     
 #events
     @commands.Cog.listener()
