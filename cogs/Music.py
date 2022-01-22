@@ -1,4 +1,4 @@
-from imp import source_from_cache
+import time
 import discord
 from discord.ext import commands
 import DiscordUtilsMod
@@ -24,7 +24,8 @@ class Music(commands.Cog):
             voice = await channel.connect()
             source = FFmpegPCMAudio('jumpscare.ogg')
             player = voice.play(source)
-
+            time.sleep(8)
+            await channel.disconnect()
         
     @commands.command()
     async def leave(self, ctx):
