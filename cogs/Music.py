@@ -1,7 +1,8 @@
+from imp import source_from_cache
 import discord
 from discord.ext import commands
 import DiscordUtilsMod
-from discord import FFmpegPCMAudio
+from discord import FFmpegPCMAudio, channel
 
 music = DiscordUtilsMod.Music()
 
@@ -13,7 +14,17 @@ class Music(commands.Cog):
     #commands
     @commands.command()
     async def join(self, ctx):
-        await ctx.author.voice.channel.connect() #Joins author's voice channel
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+    @commands.command()
+    async def jumpscare(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('jumpscare.ogg')
+            player = voice.play(source)
+
         
     @commands.command()
     async def leave(self, ctx):

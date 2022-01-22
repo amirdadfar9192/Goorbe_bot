@@ -34,16 +34,6 @@ class Socials(commands.Cog):
         await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916966639994568764/unknown.png')  
 
 
-    @commands.command()
-    async def jumpscare(self ,ctx):
-        # Gets voice channel of message author
-        voice_channel = ctx.author.channel
-        channel = None
-        if voice_channel != None:
-            channel = voice_channel.name
-            vc = await voice_channel.connect()
-            vc.play(discord.FFmpegPCMAudio(source="jumpscare.ogg"))
-            # Sleep while audio is playing    
     
 #events
     @commands.Cog.listener()
