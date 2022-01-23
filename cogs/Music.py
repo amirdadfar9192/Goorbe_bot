@@ -25,14 +25,14 @@ class Music(commands.Cog):
                 self.queue[ctx.guild.id].pop(0)
                 if len(self.queue[ctx.guild.id]) > 0:
                     video = self.queue[ctx.guild.id][0]
-                    voice_client.play(video[0], after=lambda e: self.play_next(ctx, video))
+                    voice_client.play(video[0], after=lambda e: self.skip(ctx, video))
                     em = discord.Embed(title=f":musical_note: **{video[1]}** :musical_note: is now playing in :musical_note: **{ctx.message.author.voice.channel}** :musical_note:",
                         colour=discord.Color.purple())
                     em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
                     self.bot.loop.create_task(ctx.send(embed=em))
             else:
-                voice_client.play(old_video[0], after=lambda e: self.play_next(ctx, old_video))
+                voice_client.play(old_video[0], after=lambda e: self.skip(ctx, old_video))
                 em = discord.Embed(title=f":musical_note: **{old_video[1]}** :musical_note: is now playing in :musical_note: **{ctx.message.author.voice.channel}** :musical_note:",
                     colour=discord.Color.purple())
                 em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
@@ -97,7 +97,7 @@ class Music(commands.Cog):
 
         if not voice_client.is_playing() and not voice_client.is_paused():
             try:
-                voice_client.play(video[0], after=lambda e: self.play_next(ctx, video))
+                voice_client.play(video[0], after=lambda e: self.skip(ctx, video))
 
                 if joined:
                     em = discord.Embed(title=f"Joined :musical_note: **{vc}** :musical_note:",
