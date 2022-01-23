@@ -3,6 +3,8 @@ from discord.ext import commands
 import time 
 import ffmpeg
 from discord import FFmpegPCMAudio, channel
+import DiscordUtilsMod
+music = DiscordUtilsMod.Music()
 
 class Socials(commands.Cog):
 
@@ -14,11 +16,15 @@ class Socials(commands.Cog):
         await ctx.send("https://cdn.discordapp.com/attachments/821739231096602689/917020202871435275/unknown.png")
     @commands.command()
     async def jumpscare(self, ctx):
+        player = music.get_player(guild_id=ctx.guild.id)
+        if not player:
+            await ctx.author.voice.channel.connect()
+            player = music.create_player(ctx, ffmpeg_error_betterfix=True)
         if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
+#            channel = ctx.message.author.voice.channel
+#            voice = await channel.connect()
             source = FFmpegPCMAudio('jumpscare.ogg')
-            player = voice.play(source)
+            player = channel.play(source)
             time.sleep(8)
             await ctx.voice_client.disconnect()    
 
