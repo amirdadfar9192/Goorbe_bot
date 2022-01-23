@@ -21,9 +21,9 @@ class Socials(commands.Cog):
             await ctx.author.voice.channel.connect()
             if (ctx.author.voice):
     #            channel = ctx.message.author.voice.channel
-    #            voice = await channel.connect()
+                voice = await channel()
                 source = FFmpegPCMAudio('jumpscare.ogg')
-                player = channel.play(source)
+                player = voice.play(source)
                 time.sleep(8)
                 await ctx.voice_client.disconnect()    
 
