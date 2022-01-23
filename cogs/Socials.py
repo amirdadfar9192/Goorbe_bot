@@ -16,16 +16,13 @@ class Socials(commands.Cog):
         await ctx.send("https://cdn.discordapp.com/attachments/821739231096602689/917020202871435275/unknown.png")
     @commands.command()
     async def jumpscare(self, ctx):
-        player = music.get_player(guild_id=ctx.guild.id)
-        if not player:
-            await ctx.author.voice.channel.connect()
-            if (ctx.author.voice):
-    #            channel = ctx.message.author.voice.channel
-                voice = await channel()
-                source = FFmpegPCMAudio('jumpscare.ogg')
-                player = voice.play(source)
-                time.sleep(8)
-                await ctx.voice_client.disconnect()    
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('jumpscare.ogg')
+            player = channel.play(source)
+            time.sleep(8)
+            await ctx.voice_client.disconnect()    
 
     @commands.command()
     async def info(ctx):
