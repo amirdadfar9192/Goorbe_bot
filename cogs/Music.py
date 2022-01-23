@@ -1,16 +1,10 @@
-import time
-import discord
 from discord.ext import commands
-import DiscordUtilsMod
-from discord import FFmpegPCMAudio, channel
+import discord
 from Utils import get_source
-music = DiscordUtilsMod.Music()
-
-    
 
 class Music(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self, client):
+        self.client = client
 
         self.loop = {}
         self.queue = {}
@@ -19,7 +13,7 @@ class Music(commands.Cog):
         if not ctx.guild.id in self.loop.keys():
             self.loop[ctx.guild.id] = False
 
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         try:
             if not self.loop[ctx.guild.id]:
                 self.queue[ctx.guild.id].pop(0)
@@ -30,31 +24,21 @@ class Music(commands.Cog):
                         colour=discord.Color.purple())
                     em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
-                    self.bot.loop.create_task(ctx.send(embed=em))
+                    self.client.loop.create_task(ctx.send(embed=em))
             else:
                 voice_client.play(old_video[0], after=lambda e: self.play_next(ctx, old_video))
                 em = discord.Embed(title=f":musical_note: **{old_video[1]}** :musical_note: is now playing in :musical_note: **{ctx.message.author.voice.channel}** :musical_note:",
                     colour=discord.Color.purple())
                 em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
-                self.bot.loop.create_task(ctx.send(embed=em))
+                self.client.loop.create_task(ctx.send(embed=em))
         except Exception:
             pass
 
-    @commands.command()
-    async def jumpscare(self, ctx):
-        if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
-            source = FFmpegPCMAudio('jumpscare.ogg')
-            player = voice.play(source)
-            time.sleep(8)
-            await ctx.voice_client.disconnect()
-
-    @commands.command(name="play", aliases=["p","P","Play"], help="Either plays or adds to queue the given YouTube link or search term.")
+    @commands.command(name="play", aliases=["p","P"], help="Either plays or adds to queue the given YouTube link or search term.")
     async def play(self, ctx, *, arg : str = None):
         joined = False
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if ctx.message.author.voice is None:
             em = discord.Embed(title="**You need to be in a voice channel to use this command**", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
@@ -86,7 +70,7 @@ class Music(commands.Cog):
             self.loop[ctx.guild.id] = False
             vc = ctx.author.voice.channel
             await vc.connect()
-            voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+            voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         
         video = get_source.get_source(arg)
         if ctx.guild.id not in self.queue.keys():
@@ -96,7 +80,7 @@ class Music(commands.Cog):
 
         if not voice_client.is_playing() and not voice_client.is_paused():
             try:
-                voice_client.play(video[0], after=lambda e: self.skip(ctx, video))
+                voice_client.play(video[0], after=lambda e: self.play_next(ctx, video))
 
                 if joined:
                     em = discord.Embed(title=f"Joined :musical_note: **{vc}** :musical_note:",
@@ -128,7 +112,7 @@ class Music(commands.Cog):
     async def join(self, ctx):
         user = ctx.author
         vc = user.voice.channel
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
 
         if voice_client is None:
             self.loop[ctx.guild.id] = False
@@ -143,9 +127,9 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
 
-    @commands.command(name="leave", aliases=["l","L","dc","Dc"], help="Leaves the user's VC")
+    @commands.command(name="leave", aliases=["l","L"], help="Leaves the user's VC")
     async def leave(self, ctx):
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if ctx.message.author.voice is None:
             em = discord.Embed(title="**You need to be in a voice channel to use this command**", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
@@ -204,7 +188,7 @@ class Music(commands.Cog):
         return await ctx.send(embed=em)
 
 
-    @commands.command(name="skip", aliases=["s","S","Skip"], help="Skips the currently playing song")
+    @commands.command(name="skip", aliases=["s","S"], help="Skips the currently playing song")
     async def skip(self, ctx):
         if ctx.message.author.voice is None:
             em = discord.Embed(title="**You need to be in a voice channel to use this command**", colour=discord.Color.purple())
@@ -217,7 +201,7 @@ class Music(commands.Cog):
             
             return await ctx.send(embed=em)
 
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice_client.is_playing():
             self.loop[ctx.guild.id] = False
             voice_client.stop()
@@ -244,7 +228,7 @@ class Music(commands.Cog):
             
             return await ctx.send(embed=em)
             
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
 
         if not voice_client.is_playing():
             self.queue[ctx.guild.id] = []
@@ -287,7 +271,7 @@ class Music(commands.Cog):
 
     @commands.command(name="queue", aliases=["q","Q"], help="Shows the current.")
     async def queue(self, ctx):
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        voice_client = discord.utils.get(self.client.voice_clients, guild=ctx.guild)
         if voice_client is None:
             em = discord.Embed(title="**I'm not in a VC!**", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
@@ -306,7 +290,6 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
             return await ctx.send(embed=em)
-
 
 def setup(client):
     client.add_cog(Music(client))
