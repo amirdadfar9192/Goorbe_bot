@@ -19,14 +19,13 @@ class Socials(commands.Cog):
         player = music.get_player(guild_id=ctx.guild.id)
         if not player:
             await ctx.author.voice.channel.connect()
-            player = music.create_player(ctx, ffmpeg_error_betterfix=True)
-        if (ctx.author.voice):
-#            channel = ctx.message.author.voice.channel
-#            voice = await channel.connect()
-            source = FFmpegPCMAudio('jumpscare.ogg')
-            player = channel.play(source)
-            time.sleep(8)
-            await ctx.voice_client.disconnect()    
+            if (ctx.author.voice):
+    #            channel = ctx.message.author.voice.channel
+    #            voice = await channel.connect()
+                source = FFmpegPCMAudio('jumpscare.ogg')
+                player = channel.play(source)
+                time.sleep(8)
+                await ctx.voice_client.disconnect()    
 
     @commands.command()
     async def info(ctx):
