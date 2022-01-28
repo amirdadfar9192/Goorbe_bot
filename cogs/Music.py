@@ -6,6 +6,7 @@ from discord import FFmpegPCMAudio, channel
 
 music = DiscordUtilsMod.Music()
 
+test = print("test")
 
 class Music(commands.Cog):
 
@@ -22,11 +23,21 @@ class Music(commands.Cog):
         if (ctx.author.voice):
             channel = ctx.message.author.voice.channel
             voice = await channel.connect()
-            source = FFmpegPCMAudio('jumpscare.ogg')
+            source = FFmpegPCMAudio('sounds\jumpscare.ogg')
             player = voice.play(source)
-            time.sleep(8)
+            time.sleep(5)
             await ctx.voice_client.disconnect()
             #kalam gir karde
+    @commands.command()
+    async def namosn(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('sounds\namosn.ogg')
+            player = voice.play(source)
+            time.sleep(5)
+            await ctx.voice_client.disconnect()
+            #kalam gir karde        
         
     @commands.command()
     async def leave(self, ctx):
