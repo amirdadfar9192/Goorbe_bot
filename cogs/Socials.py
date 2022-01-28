@@ -1,7 +1,8 @@
 import discord
 from discord.ext import commands
 import time 
-
+import requests
+import json
 from discord import FFmpegPCMAudio, channel
 
 
@@ -32,6 +33,21 @@ class Socials(commands.Cog):
     @commands.command()
     async def lie(self , ctx):
         await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916966639994568764/unknown.png')  
+
+    @commands.command()
+    async def random_joke(self, ctx):
+
+        joke_url = "https://random-stuff-api.p.rapidapi.com/joke"
+        querystring = {"type":"any"}
+        headers = {
+            'authorization': "A8LHhqDIb455",
+            'x-rapidapi-host': "random-stuff-api.p.rapidapi.com",
+            'x-rapidapi-key': "f93f5ef4e9mshc465320543c1b4ep1cd458jsnea1c0c7208d0"
+        }
+        response = requests.request("GET", joke_url, headers=headers, params=querystring)
+        await ctx.send(json.loads(response.text)["setup"])
+        await ctx.send(json.loads(response.text)["delivery"])
+    
 
 
     
