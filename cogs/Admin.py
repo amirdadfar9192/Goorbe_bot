@@ -2,7 +2,6 @@
 
 import discord
 import os
-from discord.utils import get
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, has_permissions
@@ -19,12 +18,7 @@ class Admin(commands.Cog):
         embed.set_footer(text="Thanks For Using This Bot :)")
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def avatar(self, ctx):
-        embed = discord.Embed()
-        embed.set_image(url=ctx.author.avatar_url)
-        await ctx.send(embed=embed)   
- 
+
  
  
     @commands.command()

@@ -1,6 +1,8 @@
+from attr import field
 import discord
 from discord.ext import commands
 import time 
+from discord import member
 import requests
 import json
 from discord import FFmpegPCMAudio, channel
@@ -45,10 +47,20 @@ class Socials(commands.Cog):
             'x-rapidapi-key': "f93f5ef4e9mshc465320543c1b4ep1cd458jsnea1c0c7208d0"
         }
         response = requests.request("GET", joke_url, headers=headers, params=querystring)
-        await ctx.send(json.loads(response.text)["setup"])
-        await ctx.send(json.loads(response.text)["delivery"])
-    
 
+        embed = discord.Embed(title="Joke",description="These jokes aren't even funny and i know it",color=0x02d475)
+        embed.add_field(name="Setup", value=json.loads(response.text)['setup'], inline=True)
+        embed.add_field(name="Delivery", value=json.loads(response.text)['delivery'], inline=True)
+        await ctx.send(embed=embed)
+        #print(joke_1)
+
+
+    @commands.command()
+    async def avatar(self, ctx):
+        embed = discord.Embed()
+        embed.set_image(url=ctx.author.avatar_url)
+        await ctx.send(embed=embed)   
+ 
 
     
 #events
@@ -62,3 +74,4 @@ class Socials(commands.Cog):
 
 def setup(client):
     client.add_cog(Socials(client))
+
