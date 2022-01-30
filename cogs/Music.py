@@ -1,7 +1,7 @@
-from ast import Import
+from utils import get_source
 from discord.ext import commands
 import discord
-from get_source import *
+
 
 
 class Music(commands.Cog):
