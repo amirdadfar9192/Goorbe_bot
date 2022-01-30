@@ -52,10 +52,13 @@ class Music(commands.Cog):
             await player.queue(url, search=True)
             song = await player.play()
             await ctx.send(f"Playing {song.name}")
-        if ctx.voice_client is None:
+        if ctx.voice_client:
             await player.queue(url, search=True)
             song = await player.play
             await ctx.send(f"Playing {song.name}")
+        if ctx.author.voice.channel is None:
+            await ctx.send("You Are Not Connected TO a voice channel")
+
                 
         else:
             song = await player.queue(url, search=True)
