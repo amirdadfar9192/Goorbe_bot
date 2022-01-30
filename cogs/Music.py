@@ -1,3 +1,4 @@
+from re import search
 import time
 import discord
 from discord.ext import commands
@@ -51,6 +52,11 @@ class Music(commands.Cog):
             await player.queue(url, search=True)
             song = await player.play()
             await ctx.send(f"Playing {song.name}")
+        if ctx.voice_client is None:
+            await player.queue(url, search=True)
+            song = await player.play
+            await ctx.send(f"Playing {song.name}")
+                
         else:
             song = await player.queue(url, search=True)
             await ctx.send(f"Queued {song.name}")
