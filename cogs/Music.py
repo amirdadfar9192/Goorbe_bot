@@ -37,7 +37,7 @@ class Music(commands.Cog):
         except Exception:
             pass
 
-    @commands.command(name="play", aliases=["p","P"], help="Either plays or adds to queue the given YouTube link or search term.")
+    @commands.command(name="play", aliases=["p","P","Play"], help="Either plays or adds to queue the given YouTube link or search term.")
     async def play(self, ctx, *, arg : str = None):
         joined = False
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
@@ -110,7 +110,7 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
 
-    @commands.command(name="join", aliases=["j","J"], help="Joins the user's VC")
+    @commands.command(name="join", aliases=["j","J","Join"], help="Joins the user's VC")
     async def join(self, ctx):
         user = ctx.author
         vc = user.voice.channel
@@ -129,7 +129,7 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
 
-    @commands.command(name="leave", aliases=["l","L"], help="Leaves the user's VC")
+    @commands.command(name="leave", aliases=["l","L","Leave","dc","DC","Dc"], help="Leaves the user's VC")
     async def leave(self, ctx):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if ctx.message.author.voice is None:
@@ -190,7 +190,7 @@ class Music(commands.Cog):
         return await ctx.send(embed=em)
 
 
-    @commands.command(name="skip", aliases=["s","S"], help="Skips the currently playing song")
+    @commands.command(name="skip", aliases=["s","S","Skip"], help="Skips the currently playing song")
     async def skip(self, ctx):
         if ctx.message.author.voice is None:
             em = discord.Embed(title="**You need to be in a voice channel to use this command**", colour=discord.Color.purple())
@@ -292,6 +292,22 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
             return await ctx.send(embed=em)
+
+    @commands.command(name="pause", aliases=["Pause"], help="Pause Music")   
+    async def pause(self,ctx):
+        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        if voice_client.is_playing():
+            voice_client.pause()
+            em = discord.Embed(title="Pause", colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=em)
+        else:
+            em = discord.Embed(title="Nothing is Playing Right Now", colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=em)
+
+
+
 
 def setup(bot):
     bot.add_cog(Music(bot))
