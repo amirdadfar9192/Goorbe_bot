@@ -84,7 +84,7 @@ class Socials(commands.Cog):
     
 #events
     @commands.Cog.listener()
-    async def on_member_join(member : discord.Member,*, message=None):
+    async def on_member_join(member : discord.Member,message=None):
         chmessage = "Welcome To Our Server :) "
         embed = discord.Embed(title = chmessage)
         await member.send(embed=embed)
