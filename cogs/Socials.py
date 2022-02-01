@@ -61,7 +61,26 @@ class Socials(commands.Cog):
         embed.set_image(url=ctx.author.avatar_url)
         await ctx.send(embed=embed)   
  
-
+    @commands.command()
+    async def jumpscare(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('jumpscare.ogg')
+            player = voice.play(source)
+            time.sleep(5)
+            await ctx.voice_client.disconnect()
+            #kalam gir karde
+    @commands.command()
+    async def namosn(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('namosn.ogg')
+            player = voice.play(source)
+            time.sleep(5)
+            await ctx.voice_client.disconnect()
+            #kalam gir karde  
     
 #events
     @commands.Cog.listener()
