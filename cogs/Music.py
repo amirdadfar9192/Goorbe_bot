@@ -306,6 +306,20 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             await ctx.send(embed=em)
 
+    @commands.command(name="resume", aliases=["Resume","res","Res"], help="Resume Paused Music")   
+    async def pause(self,ctx):
+        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+        if voice_client.is_paused():
+            voice_client.resume()
+            em = discord.Embed(title="Resumed", colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=em)
+        else:
+            em = discord.Embed(title="Nothing is Paused Right Now", colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=em)        
+
+
 
 
 
