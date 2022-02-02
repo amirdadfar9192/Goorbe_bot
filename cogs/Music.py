@@ -306,7 +306,7 @@ class Music(commands.Cog):
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             await ctx.send(embed=em)
 
-    @commands.command(name="pause", aliases=["Pause","Paus"], help="Resume Paused Music")   
+    @commands.command(name="pause", aliases=["Pause","Paus"], help="Pause music")   
     async def pause(self,ctx):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice_client.is_paused():
