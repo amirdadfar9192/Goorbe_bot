@@ -27,14 +27,14 @@ class Socials(commands.Cog):
     async def bye(self , ctx):
         await ctx.send(' https://cdn.discordapp.com/attachments/662046048524435482/916652574294294578/unknown.png')
 
-    @commands.command()
-    async def mood(self, ctx):
-        await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916663736893329459/unknown.png')
+    #@commands.command()
+    #async def mood(self, ctx):
+   #     await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916663736893329459/unknown.png')
 
 
-    @commands.command()
-    async def lie(self , ctx):
-        await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916966639994568764/unknown.png')  
+#    @commands.command()
+ #   async def lie(self , ctx):
+  #      await ctx.send('https://cdn.discordapp.com/attachments/821739231096602689/916966639994568764/unknown.png')  
 
     @commands.command()
     async def random_joke(self, ctx):
@@ -81,7 +81,24 @@ class Socials(commands.Cog):
             time.sleep(5)
             await ctx.voice_client.disconnect()
             #kalam gir karde  
-    
+    @commands.command()
+    async def iran(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('srdmeli.ogg')
+            player = voice.play(source)
+            time.sleep(5)
+            await ctx.voice_client.disconnect()        
+    @commands.command()
+    async def ajili(self, ctx):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            voice = await channel.connect()
+            source = FFmpegPCMAudio('ajili.ogg')
+            player = voice.play(source)
+            time.sleep(5)
+            await ctx.voice_client.disconnect()
 #events
     @commands.Cog.listener()
     async def on_member_join(member : discord.Member,message=None):
