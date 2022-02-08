@@ -88,7 +88,7 @@ class Socials(commands.Cog):
             voice = await channel.connect()
             source = FFmpegPCMAudio('srdmeli.ogg')
             player = voice.play(source)
-            time.sleep(5)
+            time.sleep(120)
             await ctx.voice_client.disconnect()        
     @commands.command()
     async def ajili(self, ctx):
@@ -97,7 +97,7 @@ class Socials(commands.Cog):
             voice = await channel.connect()
             source = FFmpegPCMAudio('ajili.ogg')
             player = voice.play(source)
-            time.sleep(5)
+            time.sleep(120)
             await ctx.voice_client.disconnect()
 #events
     @commands.Cog.listener()
