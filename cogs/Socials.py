@@ -6,7 +6,7 @@ from discord import member
 import requests
 import json
 from discord import FFmpegPCMAudio, channel
-
+import CusVars
 
 class Socials(commands.Cog):
 

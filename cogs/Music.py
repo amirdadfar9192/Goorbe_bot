@@ -1,8 +1,8 @@
 from utils import get_source
 from discord.ext import commands
 import discord
+import CusVars
 
-Not_working_error = "Haha Not Working? well well well i'm working on this command but right now you can't use this command =')"
 
 class Music(commands.Cog):
     def __init__(self, bot):
@@ -160,7 +160,7 @@ class Music(commands.Cog):
 
     @commands.command(name="loop", aliases=["lp"], help="Toggles looping songs on and off.")
     async def loop(self, ctx, arg : str=None):
-        await ctx.send(Not_working_error)
+        await ctx.send(CusVars.Not_working_error)
 
 
     @commands.command(name="skip", aliases=["s","S","Skip"], help="Skips the currently playing song")

@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from discord import Member
 import os
-
+import CusVars
 
 intents = discord.Intents.default()
 intents.members = True
