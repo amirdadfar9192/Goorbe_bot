@@ -2,7 +2,7 @@ from utils import get_source
 from discord.ext import commands
 import discord
 
-
+Not_working_error = "Haha Not Working? well well well i'm working on this command but right now you can't use this command =')"
 
 class Music(commands.Cog):
     def __init__(self, bot):
@@ -160,34 +160,7 @@ class Music(commands.Cog):
 
     @commands.command(name="loop", aliases=["lp"], help="Toggles looping songs on and off.")
     async def loop(self, ctx, arg : str=None):
-        if ctx.message.author.voice is None:
-            em = discord.Embed(title="**You need to be in a voice channel to use this command**", colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
-            
-            return await ctx.send(embed=em)
-
-        if ctx.message.author.voice.channel.id != ctx.voice_client.channel.id:
-            em = discord.Embed(title="**You need to be in the same voice channel as me to use this command**", colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
-            
-            return await ctx.send(embed=em)
-            
-        if arg is None and ctx.guild.id in self.loop.keys():
-            self.loop[ctx.guild.id] = not self.loop[ctx.guild.id]
-
-        elif arg is None and ctx.guild.id not in self.loop.keys():
-            self.loop[ctx.guild.id] = True
-
-        elif arg in ["true","TRUE","True", "1"]:
-            self.loop[ctx.guild.id] = True
-
-        elif arg in ["false","FALSE","False","0"]:
-            self.loop[ctx.guild.id] = False
-
-        em = discord.Embed(title=f"**Looping set to {self.loop[ctx.guild.id]}**", colour=discord.Color.purple())
-        em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
-            
-        return await ctx.send(embed=em)
+        await ctx.send(Not_working_error)
 
 
     @commands.command(name="skip", aliases=["s","S","Skip"], help="Skips the currently playing song")
