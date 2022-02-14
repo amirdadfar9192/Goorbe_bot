@@ -170,22 +170,13 @@ class Music(commands.Cog):
 
     @commands.command(name="loop", aliases=["lp"], help="Toggles looping songs on and off.")
     async def loop(self, ctx, arg: str = None):
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        song = await voice_client.toggle_song_loop()
-        if voice_client.is_looping:
-            em = discord.Embed(title=f"Loop ON :)", colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name}:)", icon_url=ctx.author.avatar_url)
-            return await ctx.send(embed=em)
-        else:
-            em = discord.Embed(title=f"Loop OFF :)", colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name} :)", icon_url=ctx.author.avatar_url)
-            return await ctx.send(embed=em)
+        await ctx.send(CusVars.Not_working_error)
 
 
 
 
     @commands.command(name="np", aliases=["song_name"], help="You Can See What Song Is Playing Right Now")
-    async def np(self, ctx,arg:str):
+    async def np(self, ctx,arg:str = None):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         video = get_source.get_source(arg)
         self.queue[ctx.guild.id].append(video)
