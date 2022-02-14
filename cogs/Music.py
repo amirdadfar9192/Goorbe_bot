@@ -188,9 +188,7 @@ class Music(commands.Cog):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice_client.is_playing():
 
-            player = voice_client.get_player(guild_id=ctx.guild.id)
-            song = player.now_playing()
-            em = discord.Embed(title=f"{song.name} is Playing Right Now", colour=discord.Color.purple())
+            em = discord.Embed(title=f"{voice_client.name} is Playing Right Now", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
         else:
