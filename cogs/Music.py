@@ -171,24 +171,31 @@ class Music(commands.Cog):
     @commands.command(name="loop", aliases=["lp"], help="Toggles looping songs on and off.")
     async def loop(self, ctx, arg: str = None):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        player = voice_client.get_player(guild_id=ctx.guild.id)
-        song = await player.toggle_song_loop()
-        if song.is_looping:
-            em = discord.Embed(title=f"{song.name} is Looped Now :)", colour=discord.Color.purple())
+        if voice_client.is_looping:
+            em = discord.Embed(title=f"{video[1]} is Looped Now :)", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}:)", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
 
         else:
-            em = discord.Embed(title=f"Disabled Loop For:{song.name} :)", colour=discord.Color.purple())
+            em = discord.Embed(title=f"Disabled Loop For:{video[1]} :)", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}:)", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
+
+    @commands.command(name="remove",help="Remove a Certain song from Queue By an Integer")
+    async def remove(self,ctx):
+        voice_client = discord.utils.get(self.bot.voice_clients,guild=ctx.guild)
+        voice_client.remove_from_queue(int(index))
+        em = discord.Embed(title=f"Removed:{video[1]} From Your Queue :)", colour=discord.Color.purple())
+        em.set_footer(text=f"Requested by {ctx.author.name}:)", icon_url=ctx.author.avatar_url)
+        return await ctx.send(embed=em)
+
 
     @commands.command(name="np", aliases=["song_name"], help="You Can See What Song Is Playing Right Now")
     async def np(self, ctx):
         voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
         if voice_client.is_playing():
 
-            em = discord.Embed(title=f"{voice_client.name} is Playing Right Now", colour=discord.Color.purple())
+            em = discord.Embed(title=f"{video[1]} is Playing Right Now", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             return await ctx.send(embed=em)
         else:
