@@ -175,20 +175,7 @@ class Music(commands.Cog):
 
 
 
-    @commands.command(name="np", aliases=["song_name"], help="You Can See What Song Is Playing Right Now")
-    async def np(self, ctx,arg:str = None):
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        video = get_source.get_source(arg)
-        self.queue[ctx.guild.id].append(video)
-        if voice_client.is_playing():
 
-            em = discord.Embed(title=f"{video[1]} is Playing Right Now", colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
-            return await ctx.send(embed=em)
-        else:
-            em = discord.Embed(title=f":musical_note: **Left** **{ctx.message.author.voice.channel}**",
-                               colour=discord.Color.purple())
-            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
 
     @commands.command(name="skip", aliases=["s", "S", "Skip"], help="Skips the currently playing song")
     async def skip(self, ctx):
