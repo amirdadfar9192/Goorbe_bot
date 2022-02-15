@@ -1,3 +1,5 @@
+import asyncio
+
 from utils import get_source
 from discord.ext import commands
 import discord
@@ -314,6 +316,28 @@ class Music(commands.Cog):
             em = discord.Embed(title="Nothing is Paused Right Now", colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             await ctx.send(embed=em)
+
+    @commands.Cog.listener()
+    async def on_voice_state_update(self,ctx, member, before, after):
+
+        if not member.id == self.bot.user.id:
+            return
+
+        elif before.channel is None:
+            voice = after.channel.guild.voice_client
+            time = 0
+            while True:
+                await asyncio.sleep(1)
+                time = time + 1
+                if voice.is_playing() and not voice.is_paused():
+                    time = 0
+                if time == 600:
+                    em = discord.Embed(title=":musical_note Disconnected From voice Channel :musical_note",color=0xe91e63)
+
+                    await voice.disconnect()
+                    await ctx.send(embed=em)
+                if not voice.is_connected():
+                    break
 
 
 def setup(bot):
