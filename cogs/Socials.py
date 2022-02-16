@@ -99,6 +99,12 @@ class Socials(commands.Cog):
             player = voice.play(source)
             time.sleep(120)
             await ctx.voice_client.disconnect()
+
+
+
+
+
+
 #events
     @commands.Cog.listener()
     async def on_member_join(member : discord.Member,message=None):
@@ -106,6 +112,11 @@ class Socials(commands.Cog):
         chmessage = "Welcome To Our Server :) "
         embed = discord.Embed(title = chmessage)
         await channel.send(embed=embed)
+
+
+
+
+
 
 
 
