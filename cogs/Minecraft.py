@@ -8,7 +8,7 @@ class Minecraft(commands.cog):
         self.client = client
 
         @commands.command(name="end_cord",aliases=["endportal","portal_cord"])
-        def end_cord(self,ctx):
+        async def end_cord(self,ctx):
             embed = discord.Embed(title="Cords:", description="X:86 Y:58 Z:-3", color=0xe9dc43)
             embed.set_thumbnail(
                 url='https://my.mcpedl.com/storage/texturepacks/775/images/nice-cats-texture-pack_3.png')
@@ -16,7 +16,7 @@ class Minecraft(commands.cog):
             await ctx.send(embed=embed)
 
         @commands.command(name="home",aliases=["minecraft_home"])
-        def home(self,ctx):
+        async def home(self,ctx):
             embed = discord.Embed(title="Cords:", description="X:-359 Y:121 Z:-61", color=0xe9dc43)
             embed.set_thumbnail(
                 url='https://my.mcpedl.com/storage/texturepacks/775/images/nice-cats-texture-pack_3.png')
@@ -26,7 +26,7 @@ class Minecraft(commands.cog):
 
 
         @commands.command(name="stronghold", aliases=["Stronghold","str_cord","Str_cord"])
-        def stronghold(self,ctx):
+        async def stronghold(self,ctx):
             embed = discord.Embed(title="Cords:", description="X:-696 Y:~ Z:1432", color=0xe9dc43)
             embed.set_thumbnail(
                 url='https://my.mcpedl.com/storage/texturepacks/775/images/nice-cats-texture-pack_3.png')
