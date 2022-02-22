@@ -1,3 +1,4 @@
+import asyncio
 
 import discord
 from discord.ext import commands
@@ -126,9 +127,25 @@ class Socials(commands.Cog):
             time.sleep(120)
             await ctx.voice_client.disconnect()
 
+    @commands.command(name='echo',description="Repeats Your Message")
+    async def echo(self,ctx):
+        await ctx.message.delete()
+        embed = discord.Embed(title="What Do You Want Me To Repeat??",
+                              description="||This Request Has a 1 Minute Time out||")
 
 
+        senp = await ctx.send(embed=embed)
+        try:
+            msg=await self.client.wait_for("message",timeout=68,check=lambda message : message.author == ctx.author and message.channel == ctx.channel)
+            if msg:
+                await senp.delete()
+                await msg.delete()
+                await ctx.send(msg.content)
 
+
+        except asyncio.TimeoutError:
+            await senp.delete()
+            await ctx.send("Cancelling Due To TimeOut.",delete_after=10)
 
 
 #events
