@@ -31,5 +31,6 @@ if __name__ == '__main__':
     for extension in initial_extensions:
         client.load_extension(extension)          
 
+#token = "OTE2MzIxODQ3NjYwOTI5MDY3.YaodOA.U4tXi2jneqPeO_S9BZpHORE8P_k"
 token = os.getenv("DISCORD_TOKEN")
 client.run(token)    
