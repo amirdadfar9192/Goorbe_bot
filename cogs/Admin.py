@@ -112,7 +112,7 @@ class Admin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        embed = discord.Embed(title="Invalid Command Used",destcription=f"{str(error)}",colour=discord.Colour.dark_magenta())
+        embed = discord.Embed(title="Invalid Command Used",destcription=f"Error :{str(error)}",colour=discord.Color.dark_magenta())
         embed.set_footer(text=f"Requested by {ctx.author.name}",icon_url=ctx.author.avatar_url)
         await ctx.send(embed)
 
