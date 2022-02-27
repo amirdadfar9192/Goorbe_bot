@@ -112,7 +112,7 @@ class Admin(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, error):
-        await ctx.send(f"There Was An Error With This Command. Error: {str(error)")
+        await ctx.send(f"There Was An Error With This Command. Error: {str(error)}")
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
