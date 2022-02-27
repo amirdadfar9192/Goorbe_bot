@@ -1,5 +1,5 @@
 import asyncio
-
+from discord.utils import get
 import discord
 import os
 from discord import Member
@@ -111,7 +111,7 @@ class Admin(commands.Cog):
             confirmMsgID
         except NameError:
             return
-        if reaction.message.id == confirmMsgID and reaction.emoji == '\N{NO ENTRY SIGN}' and user.id != self.bot.user.id and user.id == confirmMsgUserID:
+        if reaction.message.id == confirmMsgID and reaction.emoji == '\N{NO ENTRY SIGN}' and user.id != self.client.user.id and user.id == confirmMsgUserID:
             await reaction.message.channel.purge(limit=None)
 
             em = discord.Embed(title=f"This channel was cleared", colour=discord.Color.purple())
