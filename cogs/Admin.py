@@ -110,11 +110,11 @@ class Admin(commands.Cog):
 
             return await ctx.send(embed=em)
 
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        em = discord.Embed(title=f"{str(error)}", colour=discord.Color.purple())
-        em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
-        await ctx.send(embed=em)
+    #@commands.Cog.listener()
+   # async def on_command_error(self, ctx, error):
+  #      em = discord.Embed(title=f"{str(error)}", colour=discord.Color.purple())
+ #       em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+#        await ctx.send(embed=em)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
