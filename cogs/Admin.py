@@ -115,6 +115,7 @@ class Admin(commands.Cog):
         if isinstance(error, discord.ext.commands.errors.CommandNotFound):
             em = discord.Embed(title=f"Unknown command {str(error)}",colour=discord.Color.dark_magenta())
             em.set_footer(text="Use %help TO See Available Commands :)")
+            await ctx.send(embed=em)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
