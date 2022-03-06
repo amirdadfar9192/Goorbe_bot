@@ -116,7 +116,7 @@ class Admin(commands.Cog):
             em = discord.Embed(title="**Command Not Found!!.**",
                                colour=discord.Color.purple())
             em.set_footer(text=f"Use %help To See Commands.")
-            return await ctx.send(embed=em)
+            await ctx.send(f"command not found{str(error)}")
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
