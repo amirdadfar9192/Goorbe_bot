@@ -113,9 +113,10 @@ class Admin(commands.Cog):
     @commands.Cog.listener()
     async def on_command_error(self,error,ctx):
         if isinstance(error, discord.ext.commands.errors.CommandNotFound):
-            em = discord.Embed(title=f"Unknown command {str(error)}",colour=discord.Color.dark_magenta())
-            em.set_footer(text="Use %help TO See Available Commands :)")
-            await ctx.send(embed=em)
+            em = discord.Embed(title="**Command Not Found!!.**",
+                               colour=discord.Color.purple())
+            em.set_footer(text=f"Use %help To See Commands.")
+            return await ctx.send(embed=em)
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):
