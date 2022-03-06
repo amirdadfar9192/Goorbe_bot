@@ -111,7 +111,7 @@ class Admin(commands.Cog):
             return await ctx.send(embed=em)
 
     @commands.Cog.listener()
-    async def on_command_error(self,error,ctx):
+    async def on_message_error(self,error,ctx):
         if isinstance(error, discord.ext.commands.errors.CommandNotFound):
             em = discord.Embed(title="**Command Not Found!!.**",
                                colour=discord.Color.purple())
