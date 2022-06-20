@@ -11,6 +11,7 @@ dash = '!------------------------!'
 client = commands.Bot(command_prefix = '%', intents = intents)
 
 
+
 @client.event
 async def on_ready():
     print("bot is now ready to use")
@@ -24,13 +25,14 @@ initial_extensions = []
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         initial_extensions.append("cogs." + filename[:-3])
+        print(filename)
     
 
 
 if __name__ == '__main__':
     for extension in initial_extensions:
-        client.load_extension(extension)          
+       client.load_extension(extension)
 
-#token = "OTE2MzIxODQ3NjYwOTI5MDY3.YaodOA.U4tXi2jneqPeO_S9BZpHORE8P_k"
-token = os.getenv("DISCORD_TOKEN")
+token = "OTE2MzIxODQ3NjYwOTI5MDY3.YaodOA.U4tXi2jneqPeO_S9BZpHORE8P_k"
+#token = os.getenv("DISCORD_TOKEN")
 client.run(token)    
