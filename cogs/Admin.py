@@ -11,6 +11,25 @@ class Admin(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    @commands.command(aliases=['Login', 'LOGIN'], description="Login To Your Account")
+    async def login(self, ctx):
+
+        await ctx.send("What is the password?")
+        msg = await self.client.wait_for("message", check=lambda message: message.author == ctx.author, timeout=60)
+        if msg.content == "pass":
+            await ctx.send("Login Successful")
+            Login_file = open('Logins.txt','r+')
+            Login_file.write(f"\n Login by me")
+            Login_file.close()
+            await ctx.send("Login Recorded in Logs")
+
+        else:
+            await ctx.send("Wrong Password")
+
+
+
+
+
     @commands.command()
     async def embed(self, ctx):
         embed = discord.Embed(title="Amir", url="https://github.com/amirdadfar9192",
