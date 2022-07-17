@@ -5,7 +5,8 @@ import os
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, has_permissions
-
+#TODO:Fix Logs not being added after logging in.
+#TODO:Add An Actual Feature To Login Command.
 
 class Admin(commands.Cog):
     def __init__(self, client):
@@ -16,12 +17,15 @@ class Admin(commands.Cog):
 
         await ctx.send("What is the password?")
         msg = await self.client.wait_for("message", check=lambda message: message.author == ctx.author, timeout=60)
+        timemsgcrtdat = print(ctx.message.created_at)
         if msg.content == "pass":
             await ctx.send("Login Successful")
-            Login_file = open('Logins.txt','r+')
-            Login_file.write(f"\n Login by me")
-            Login_file.close()
+            login_file = open('Logins.txt','r+')
+            login_file.write(f"\n Login by me")
+            login_file.close()
             await ctx.send("Login Recorded in Logs")
+            print(timemsgcrtdat)
+
 
         else:
             await ctx.send("Wrong Password")
@@ -129,10 +133,7 @@ class Admin(commands.Cog):
 
             return await ctx.send(embed=em)
 
-    @commands.Cog.listener()
-    async def on_message_error(self,error,ctx):
-        if isinstance(error, discord.ext.commands.errors.CommandNotFound):
-            await ctx.send(f"command not found")
+
 
     @commands.Cog.listener()
     async def on_reaction_add(self, reaction, user):

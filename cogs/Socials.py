@@ -8,6 +8,7 @@ import requests
 import json
 from discord import FFmpegPCMAudio, channel
 import CusVars
+#TODO: clean the commands , And Remove Unwanted Commands.
 
 class Socials(commands.Cog):
 
