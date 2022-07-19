@@ -5,7 +5,7 @@ import os
 from discord import Member
 from discord.ext import commands
 from discord.ext.commands import MissingPermissions, has_permissions
-#TODO:Fix Logs not being added after logging in.
+import os
 #TODO:Add An Actual Feature To Login Command.
 
 class Admin(commands.Cog):
@@ -15,20 +15,37 @@ class Admin(commands.Cog):
     @commands.command(aliases=['Login', 'LOGIN'], description="Login To Your Account")
     async def login(self, ctx):
 
-        await ctx.send("What is the password?")
+        em = discord.Embed(title="What's the password?",
+                               colour=discord.Color.purple())
+        em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+        await ctx.send(embed=em)
         msg = await self.client.wait_for("message", check=lambda message: message.author == ctx.author, timeout=60)
-        timemsgcrtdat = print(ctx.message.created_at)
-        if msg.content == "pass":
-            await ctx.send("Login Successful")
-            login_file = open('Logins.txt','r+')
-            login_file.write(f"\n Login by me")
+        if msg.content == "91t1342sa":
+            em = discord.Embed(title="Logged in",
+                               colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+            await ctx.send(embed=em)
+            login_file = open('Logins.txt','a')
+            login_file.write(f"Login by {ctx.author.name} , in ,{ctx.message.created_at} \n")
             login_file.close()
-            await ctx.send("Login Recorded in Logs")
-            print(timemsgcrtdat)
+            em = discord.Embed(title="Recorded to logs",
+                               colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+
+            await ctx.send(embed=em)
+
 
 
         else:
-            await ctx.send("Wrong Password")
+            em = discord.Embed(title="Incorrect Login Information",
+                               colour=discord.Color.purple())
+            em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
+
+            await ctx.send(embed=em)
+            login_file = open('Logins.txt', 'a')
+            login_file.write(f"FAILED LOGIN ATTEMPT IN {ctx.message.created_at} \n")
+            login_file.close()
+
 
 
 
