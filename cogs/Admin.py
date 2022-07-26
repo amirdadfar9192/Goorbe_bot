@@ -1,4 +1,6 @@
 import asyncio
+import hashlib
+
 from discord.utils import get
 import discord
 import os
@@ -19,13 +21,16 @@ class Admin(commands.Cog):
                                colour=discord.Color.purple())
         em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
         await ctx.send(embed=em)
+        hashedpass = hashlib.sha256("91t1342sa".encode('utf-8')).hexdigest()
         msg = await self.client.wait_for("message", check=lambda message: message.author == ctx.author, timeout=60)
-        if msg.content == "91t1342sa":
+        newmessagehash = hashlib.sha256(msg.content.encode('utf-8')).hexdigest()
+        if newmessagehash == hashedpass:
             em = discord.Embed(title="Logged in",
                                colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)
             await ctx.send(embed=em)
             login_file = open('Logins.txt','a')
+
             login_file.write(f"Login by {ctx.author.name} , in ,{ctx.message.created_at} \n")
             login_file.close()
             em = discord.Embed(title="Recorded to logs",
