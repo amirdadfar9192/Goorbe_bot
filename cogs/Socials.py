@@ -8,7 +8,7 @@ import requests
 import json
 from discord import FFmpegPCMAudio, channel
 import CusVars
-#TODO: clean the commands , And Remove Unwanted Commands.
+#TODO: fix custom voices :).clean the commands , And Remove Unwanted Commands.
 
 class Socials(commands.Cog):
 
@@ -89,44 +89,44 @@ class Socials(commands.Cog):
         embed.set_image(url=ctx.author.avatar_url)
         await ctx.send(embed=embed)   
  
-    @commands.command()
-    async def jumpscare(self, ctx):
-        if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
-            source = FFmpegPCMAudio('jumpscare.ogg')
-            player = voice.play(source)
-            time.sleep(5)
-            await ctx.voice_client.disconnect()
+   # @commands.command()
+    #async def jumpscare(self, ctx):
+       # if (ctx.author.voice):
+          #  channel = ctx.message.author.voice.channel
+         #   voice = await channel.connect()
+        #    source = FFmpegPCMAudio('jumpscare.ogg')
+       #     player = voice.play(source)
+      #      time.sleep(5)
+     #       await ctx.voice_client.disconnect()
             #kalam gir karde
-    @commands.command()
-    async def namosn(self, ctx):
-        if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
-            source = FFmpegPCMAudio('namosn.ogg')
-            player = voice.play(source)
-            time.sleep(5)
-            await ctx.voice_client.disconnect()
+    #@commands.command()
+    #sync def namosn(self, ctx):
+        #if (ctx.author.voice):
+          #  channel = ctx.message.author.voice.channel
+         #   voice = await channel.connect()
+        #    source = FFmpegPCMAudio('namosn.ogg')
+       #     player = voice.play(source)
+      #      time.sleep(5)
+     #       await ctx.voice_client.disconnect()
             #kalam gir karde  
-    @commands.command()
-    async def iran(self, ctx):
-        if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
-            source = FFmpegPCMAudio('srdmeli.ogg')
-            player = voice.play(source)
-            time.sleep(120)
-            await ctx.voice_client.disconnect()        
-    @commands.command()
-    async def ajili(self, ctx):
-        if (ctx.author.voice):
-            channel = ctx.message.author.voice.channel
-            voice = await channel.connect()
-            source = FFmpegPCMAudio('ajili.ogg')
-            player = voice.play(source)
-            time.sleep(120)
-            await ctx.voice_client.disconnect()
+   # @commands.command()
+    #async def iran(self, ctx):
+        #if (ctx.author.voice):
+          #  channel = ctx.message.author.voice.channel
+         #   voice = await channel.connect()
+        #    source = FFmpegPCMAudio('srdmeli.ogg')
+       #     player = voice.play(source)
+      #      time.sleep(120)
+     #       await ctx.voice_client.disconnect()
+   # @commands.command()
+    #async def ajili(self, ctx):
+     #   if (ctx.author.voice):
+      #      channel = ctx.message.author.voice.channel
+       #     voice = await channel.connect()
+        #    source = FFmpegPCMAudio('ajili.ogg')
+         #   player = voice.play(source)
+          #  time.sleep(120)
+           # await ctx.voice_client.disconnect()
 
     @commands.command(name='echo',description="Repeats Your Message")
     async def echo(self,ctx):

@@ -1,4 +1,4 @@
-
+from utils import keep_alive
 import discord
 from discord.ext import commands
 from discord import Member
@@ -17,6 +17,7 @@ async def on_ready():
     print("bot is now ready to use")
     print(dash)
     await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Prefix == "%" Enjoy:)'))
+    keep_alive()
 
 
 
@@ -33,6 +34,6 @@ if __name__ == '__main__':
     for extension in initial_extensions:
        client.load_extension(extension)
 
-token = "OTE2MzIxODQ3NjYwOTI5MDY3.YaodOA.U4tXi2jneqPeO_S9BZpHORE8P_k"
-#token = os.getenv("DISCORD_TOKEN")
+
+token = os.getenv("DISCORD_TOKEN")
 client.run(token)    

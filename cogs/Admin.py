@@ -25,6 +25,7 @@ class Admin(commands.Cog):
         msg = await self.client.wait_for("message", check=lambda message: message.author == ctx.author, timeout=60)
         newmessagehash = hashlib.sha256(msg.content.encode('utf-8')).hexdigest()
         if newmessagehash == hashedpass:
+
             em = discord.Embed(title="Logged in",
                                colour=discord.Color.purple())
             em.set_footer(text=f"Requested by {ctx.author.name}", icon_url=ctx.author.avatar_url)

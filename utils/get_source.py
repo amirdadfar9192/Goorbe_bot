@@ -1,7 +1,7 @@
 from youtube_dl import YoutubeDL
 import requests
 import discord
-
+#TODO:Optimize shit
 def get_source(arg):
     YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
     FFMPEG_OPTIONS = {"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
@@ -21,3 +21,7 @@ def get_source(arg):
             return [video_obj, title]
     except IndexError:
         pass
+
+
+
+
