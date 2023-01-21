@@ -1,4 +1,4 @@
-from utils import keep_alive
+from utils.keep_alive import keep_alive
 import discord
 from discord.ext import commands
 from discord import Member
@@ -32,7 +32,7 @@ for filename in os.listdir('./cogs'):
 
 if __name__ == '__main__':
     for extension in initial_extensions:
-       client.load_extension(extension)
+       await client.load_extension(extension)
 
 
 token = os.getenv("DISCORD_TOKEN")
