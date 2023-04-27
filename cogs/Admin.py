@@ -179,3 +179,5 @@ class Admin(commands.Cog):
 
 def setup(client):
     client.add_cog(Admin(client))
+
+#asyncio.run(setup())

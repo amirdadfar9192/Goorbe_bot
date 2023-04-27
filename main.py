@@ -3,37 +3,40 @@ import discord
 from discord.ext import commands
 from discord import Member
 import os
-import CusVars
+#import CusVars
+import asyncio
 
-intents = discord.Intents.default()
+print
+intents = discord.Intents.all()
 intents.members = True
 dash = '!------------------------!'
-client = commands.Bot(command_prefix = '%', intents = intents)
-
+client = commands.Bot(command_prefix='%', intents=intents)
 
 
 @client.event
 async def on_ready():
-    print("bot is now ready to use")
-    print(dash)
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='Prefix == "%" Enjoy:)'))
-    keep_alive()
-
+  print("bot is now ready to use")
+  print(dash)
+  await client.change_presence(activity=discord.Activity(
+    type=discord.ActivityType.listening, name='Prefix == "%" Enjoy:)'))
+  keep_alive()
 
 
 initial_extensions = []
 
-for filename in os.listdir('./cogs'):
+
+async def load_extt():
+
+  for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        initial_extensions.append("cogs." + filename[:-3])
-        print(filename)
-    
+      initial_extensions.append("cogs." + filename[:-3])
+      print(filename)
 
-
-if __name__ == '__main__':
+  if __name__ == '__main__':
     for extension in initial_extensions:
-       await client.load_extension(extension)
+      client.load_extension(extension)
 
 
-token = os.getenv("DISCORD_TOKEN")
-client.run(token)    
+asyncio.run(load_extt())
+#token = os.environ.get("Dis-tok")
+client.run('OTE2MzIxODQ3NjYwOTI5MDY3.GWI7cw.Fe1EOiJt_KgZFOCqBTEFMqs8eIdc0TtJbD81Bo')
