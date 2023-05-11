@@ -179,6 +179,7 @@ class Music(commands.Cog):
 
 
 
+
     @commands.command(name="skip", aliases=["s", "S", "Skip"], help="Skips the currently playing song")
     async def skip(self, ctx):
         if ctx.message.author.voice is None:

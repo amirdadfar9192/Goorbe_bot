@@ -1,14 +1,15 @@
 from youtube_dl import YoutubeDL
 import requests
 import discord
-#TODO:Optimize shit
+#TODO:Optimize shit,spaCy, which has a Discord integration available.
 def get_source(arg):
     YDL_OPTIONS = {'format': 'bestaudio', 'noplaylist':'True'}
     FFMPEG_OPTIONS = {"before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5", "options": "-vn"}
     try:
         with YoutubeDL(YDL_OPTIONS) as ydl:
             try:
-                requests.get(arg) 
+                requests.get(arg)
+
             except Exception:
                 video = ydl.extract_info(f"ytsearch:{arg}", download=False)['entries'][0]
             else:
