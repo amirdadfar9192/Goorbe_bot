@@ -7,19 +7,21 @@ import os
 #import CusVars
 import asyncio
 
-
-print
 intents = discord.Intents.all()
 intents.members = True
 dash = '!------------------------!'
 client = commands.Bot(command_prefix='%', intents=intents)
 
 initial_extensions = []
+
+
 async def load_extensions():
-    for filename in os.listdir("./cogs"):
-        if filename.endswith(".py"):
-            # cut off the .py from the file name
-            client.load_extension(f"cogs.{filename[:-3]}")
+  for filename in os.listdir("./cogs"):
+    if filename.endswith(".py"):
+      # cut off the .py from the file name
+      await client.load_extension(f"cogs.{filename[:-3]}")
+
+
 @client.event
 async def on_ready():
   print("bot is now ready to use")
@@ -29,13 +31,16 @@ async def on_ready():
   await client.tree.sync()
   keep_alive()
 
+
 asyncio.run(load_extensions())
 
-@client.tree.command(name = "hello", description = "Hello") #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
+
+@client.tree.command(
+  name="hello", description="Hello"
+)  #Add the guild ids in which the slash command will appear. If it should be in all, remove the argument, but note that it will take some time (up to an hour) to register the command if it's for all guilds.
 async def first_command(interaction):
-    await interaction.response.send_message("Hello!")
+  await interaction.response.send_message("Hello!")
 
 
-
-
-client.run("token")
+token = os.environ.get("token")
+client.run(token)
