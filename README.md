@@ -1,3 +1,2 @@
 # Goorbe_bot
- Just a simple discord bot nothing special
- haha
+symple discord 2.0 bot
